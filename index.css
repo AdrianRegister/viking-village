@@ -1,0 +1,50 @@
+button {
+  height: fit-content;
+}
+
+.bar-container {
+  width: 125px;
+}
+
+#root {
+  margin: 50px;
+  height: 768px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 2px dotted blue;
+}
+
+#main-info-bar,
+#resources-bar {
+  display: flex;
+  gap: 15px;
+}
+
+#next-season-button {
+  border: 1px solid black;
+}
+
+#game-interface {
+  border: 1px dotted green;
+  padding: 15px;
+  height: 650px;
+  width: 1680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#game-events-log {
+  border: 1px solid red;
+  height: 300px;
+  width: 1680px;
+}
+
+#leaders-interface {
+  border: 1px solid aqua;
+  height: 300px;
+  width: 1680px;
+}
