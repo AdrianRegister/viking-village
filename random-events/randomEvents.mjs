@@ -20,5 +20,17 @@ export class RandomEvent {
     return this.generatedEvent
   }
 
-  applyEventModifiers() {}
+  applyEventModifiers() {
+    const modifiers = this.generatedEvent.effects
+    for (const modifier of modifiers) {
+      if (modifier.isPercentage) {
+        GAME.randomEventResourceModifiers[modifier.resourceAffected] =
+          modifier.modifier
+      } else {
+        GAME.resources[modifier.resourceAffected] += modifier.modifier
+      }
+    }
+    console.log("random event modifiers", GAME.randomEventResourceModifiers)
+    console.log("resources after random event", GAME.resources)
+  }
 }

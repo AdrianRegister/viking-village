@@ -21,6 +21,13 @@ export const GAME = {
     silverPS: 5,
     moralePS: 0,
   },
+  randomEventResourceModifiers: {
+    population: 0,
+    food: 0,
+    wood: 0,
+    silver: 0,
+    morale: 0,
+  },
   seasonResourceModifiers: {
     1: {
       population: 1,

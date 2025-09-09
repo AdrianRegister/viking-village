@@ -8,7 +8,7 @@ export const EVENTS = {
         {
           resourceAffected: "food",
           isPercentage: true,
-          modifier: 1.15,
+          modifier: 0.15,
         },
       ],
     },
@@ -33,7 +33,7 @@ export const EVENTS = {
         {
           resourceAffected: "silver",
           isPercentage: true,
-          modifier: 1.1,
+          modifier: 0.1,
         },
       ],
     },
