@@ -11,33 +11,40 @@ export class NextTurn {
     GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
   }
 
+  // Each pop consumes 1 food per season
   calculateResources() {
-    GAME.resources.population += Math.floor(
-      GAME.resourcesPerSeason.populationPS *
-        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].population +
-          GAME.randomEventResourceModifiers.population)
-    )
-
-    GAME.resources.food += Math.floor(
-      GAME.resourcesPerSeason.foodPS *
-        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].food +
-          GAME.randomEventResourceModifiers.food)
-    )
+    GAME.resources.food +=
+      Math.floor(
+        GAME.resourcesPerSeason.foodPS *
+          (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].foodSRM +
+            GAME.randomEventResourceModifiers.food)
+      ) - GAME.resources.population
 
     GAME.resources.wood += Math.floor(
       GAME.resourcesPerSeason.woodPS *
-        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].wood +
+        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].woodSRM +
           GAME.randomEventResourceModifiers.wood)
     )
 
     GAME.resources.silver += Math.floor(
       GAME.resourcesPerSeason.silverPS *
-        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].silver +
+        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].silverSRM +
           GAME.randomEventResourceModifiers.silver)
     )
 
     GAME.resources.morale += GAME.resourcesPerSeason.moralePS
+  }
 
-    console.log("final resources after calculation", GAME.resources)
+  calculatePopulation(randomEvent) {
+    GAME.resources.population += Math.floor(
+      GAME.resourcesPerSeason.populationPS *
+        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].populationSRM +
+          GAME.randomEventResourceModifiers.population)
+    )
+
+    if (randomEvent.name === "Harsh Winter") {
+      GAME.resources.food -= GAME.resources.population
+      GAME.resources.wood -= GAME.resources.population
+    }
   }
 }

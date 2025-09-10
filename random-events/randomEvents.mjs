@@ -20,6 +20,12 @@ export class RandomEvent {
     return this.generatedEvent
   }
 
+  resetEventModifiers() {
+    for (const k of Object.keys(GAME.randomEventResourceModifiers)) {
+      GAME.randomEventResourceModifiers[k] = 0
+    }
+  }
+
   applyEventModifiers() {
     const modifiers = this.generatedEvent.effects
     for (const modifier of modifiers) {
@@ -27,10 +33,9 @@ export class RandomEvent {
         GAME.randomEventResourceModifiers[modifier.resourceAffected] =
           modifier.modifier
       } else {
+        console.log("reducing pop in winter...")
         GAME.resources[modifier.resourceAffected] += modifier.modifier
       }
     }
-    console.log("random event modifiers", GAME.randomEventResourceModifiers)
-    console.log("resources after random event", GAME.resources)
   }
 }

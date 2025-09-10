@@ -15,6 +15,7 @@ export class UIUpdater {
     const MORALE_COUNT = document.querySelector("#morale-count")
 
     const { population, food, wood, silver, morale } = GAME.resources
+
     POPULATION_COUNT.innerHTML = Math.floor(population)
     FOOD_COUNT.innerHTML = Math.floor(food)
     WOOD_COUNT.innerHTML = Math.floor(wood)
@@ -33,29 +34,30 @@ export class UIUpdater {
     const nextSeasonNumber =
       GAME.currentSeasonNumber === 4 ? 1 : GAME.currentSeasonNumber + 1
 
-    POPULATION_PS.innerHTML = `${
-      GAME.seasonResourceModifiers[nextSeasonNumber].population >= 0 ? "+" : ""
-    }${Math.floor(
-      populationPS * GAME.seasonResourceModifiers[nextSeasonNumber].population
-    )}`
-    FOOD_PS.innerHTML = `${
-      GAME.seasonResourceModifiers[nextSeasonNumber].food >= 0 ? "+" : ""
-    }${Math.floor(
-      foodPS * GAME.seasonResourceModifiers[nextSeasonNumber].food
-    )}`
-    WOOD_PS.innerHTML = `${
-      GAME.seasonResourceModifiers[nextSeasonNumber].wood >= 0 ? "+" : ""
-    }${Math.floor(
-      woodPS * GAME.seasonResourceModifiers[nextSeasonNumber].wood
-    )}`
-    SILVER_PS.innerHTML = `${
-      GAME.seasonResourceModifiers[nextSeasonNumber].silver >= 0 ? "+" : ""
-    }${Math.floor(
-      silverPS * GAME.seasonResourceModifiers[nextSeasonNumber].silver
-    )}`
-    MORALE_PS.innerHTML = `${
-      GAME.seasonResourceModifiers[nextSeasonNumber].morale >= 0 ? "+" : ""
-    }${moralePS}`
+    const popPsText = Math.floor(
+      populationPS *
+        GAME.seasonResourceModifiers[nextSeasonNumber].populationSRM
+    )
+    POPULATION_PS.innerHTML = popPsText >= 0 ? `+${popPsText}` : popPsText
+
+    // Each pop consumes 1 food per season
+    const foodPsText =
+      Math.floor(
+        foodPS * GAME.seasonResourceModifiers[nextSeasonNumber].foodSRM
+      ) - GAME.resources.population
+    FOOD_PS.innerHTML = foodPsText >= 0 ? `+${foodPsText}` : foodPsText
+
+    const woodPsText = Math.floor(
+      woodPS * GAME.seasonResourceModifiers[nextSeasonNumber].woodSRM
+    )
+    WOOD_PS.innerHTML = woodPsText >= 0 ? `+${woodPsText}` : woodPsText
+
+    const silverPsText = Math.floor(
+      silverPS * GAME.seasonResourceModifiers[nextSeasonNumber].silverSRM
+    )
+    SILVER_PS.innerHTML = silverPsText >= 0 ? `+${silverPsText}` : silverPsText
+
+    MORALE_PS.innerHTML = `+${moralePS}`
   }
 
   updateYear() {

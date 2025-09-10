@@ -1,3 +1,5 @@
+import { GAME } from "./game.mjs"
+
 export const EVENTS = {
   1: [
     {
@@ -80,18 +82,14 @@ export const EVENTS = {
   ],
   4: [
     {
+      // MODIFIERS TO THIS EVENT MANAGED IN NextTurn.calculatePopulation()
       name: "Harsh Winter",
-      description: "Bitter cold. Double wood and food consumption this season!",
+      description: "Bitter cold. Double food upkeep this season!",
       effects: [
         {
           resourceAffected: "food",
-          isPercentage: true,
-          modifier: -1,
-        },
-        {
-          resourceAffected: "wood",
-          isPercentage: true,
-          modifier: -1,
+          isPercentage: false,
+          modifier: 0,
         },
       ],
     },

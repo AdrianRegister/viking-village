@@ -21,15 +21,18 @@ export function handleNextTurn() {
   turn.calculateSeason()
 
   const eventGenerator = new RandomEvent(GAME.currentSeasonNumber)
+  eventGenerator.resetEventModifiers()
   eventGenerator.applyEventModifiers()
 
   turn.calculateYear()
   turn.calculateResources()
 
+  const randomEvent = eventGenerator.getGeneratedEvent()
+  turn.calculatePopulation(randomEvent)
+
   const updater = new UIUpdater()
   updater.updateAll()
 
   const ui = new UIGenerator()
-  const randomEvent = eventGenerator.getGeneratedEvent()
   ui.renderRandomEventPopup(randomEvent)
 }
