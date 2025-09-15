@@ -11,13 +11,34 @@
     <div id="root">
       <div id="main-info-bar">
         <div id="resources-bar"></div>
-        <div id="season-indicator"></div>
-        <div id="year-indicator"></div>
+        <div id="season-year-bar">
+          <div id="season-indicator"></div>
+          <div id="year-indicator"></div>
+        </div>
         <button id="next-season-button">NEXT SEASON</button>
       </div>
       <div id="game-interface">
         <div id="game-events-log"></div>
-        <div id="leaders-interface"></div>
+        <div id="leaders-interface">
+          <div class="activity-container">
+            <h3>Foraging</h3>
+            <div class="activity-option">
+              <p>Focus on hunting, fishing and gathering</p>
+              <button class="choose-activity-button" data-foraging="food">CHOOSE</button>
+            </div>
+            <div class="activity-option">
+              <p>Focus on forestry and lumber creation</p>
+              <button class="choose-activity-button" data-foraging="wood">CHOOSE</button>
+            </div>
+          </div>
+          <div class="activity-container">
+            <h3>Raiding</h3>
+          </div>
+          <div class="activity-container">
+            <h3>Manufacturing</h3>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
     <script type="module" src="main.mjs"></script>

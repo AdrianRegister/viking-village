@@ -41,7 +41,7 @@ export class UIGenerator {
   #renderYear() {
     const html = `
       <div class="bar-container">
-        <span>Year: </span>
+        <span>Year</span>
         <span id="current-year"></span>
       </div>
     `
@@ -52,7 +52,7 @@ export class UIGenerator {
   #renderSeason() {
     const html = `
       <div class="bar-container">
-        <span>Season: </span>
+        <span>Season</span>
         <span id="current-season"></span>
       </div>
     `
@@ -63,29 +63,39 @@ export class UIGenerator {
   #renderResourcesBar() {
     const html = `
       <div class="bar-container">
-        <span>Population: </span>
-        <span id="population-count"></span>
-        <span id="population-per-season"></span>
+        <span>Population</span>
+        <div>
+          <span id="population-count"></span>
+          <span id="population-per-season"></span>
+        </div>
       </div>
       <div class="bar-container">
-        <span>Food: </span>
-        <span id="food-count"></span>
-        <span id="food-per-season"></span>
+        <span>Food</span>
+        <div>
+          <span id="food-count"></span>
+          <span id="food-per-season"></span>
+        </div>
       </div>
       <div class="bar-container">
-        <span>Wood: </span>
-        <span id="wood-count"></span>
-        <span id="wood-per-season"></span>
+        <span>Wood</span>
+        <div>
+          <span id="wood-count"></span>
+          <span id="wood-per-season"></span>
+        </div>
       </div>
       <div class="bar-container">
-        <span>Silver: </span>
-        <span id="silver-count"></span>
-        <span id="silver-per-season"></span>
+        <span>Silver</span>
+        <div>
+          <span id="silver-count"></span>
+          <span id="silver-per-season"></span>
+        </div>
       </div>
       <div class="bar-container">
-        <span>Morale: </span>
-        <span id="morale-count"></span>
-        <span id="morale-per-season"></span>
+        <span>Morale</span>
+        <div>
+          <span id="morale-count"></span>
+          <span id="morale-per-season"></span>
+        </div>
       </div>
     `
 
