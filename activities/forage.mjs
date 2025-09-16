@@ -54,13 +54,13 @@ export class Forage {
 
     // console.log(this.successModifiers)
     // console.log("base chance", baseChance)
-
-    // Clamp between 0 and 1
     const successChance = Math.min(Math.max(baseChance, 0), 1)
+
     return successChance
   }
 
   #rollResourcesGained() {
+    // in the future, make this scale off Foraging 'Leader'
     const roll = Math.random()
     if (roll < 0.5) {
       return 10
@@ -76,11 +76,12 @@ export class Forage {
     // console.log("roll", roll)
     const isSuccessful = this.#calculateSuccessChance() > roll ? true : false
     // console.log("is successful", isSuccessful)
-    if (!isSuccessful) return
+    if (!isSuccessful) return "Your men failed to forage anything!"
 
     const resourcesGained = this.#rollResourcesGained()
     // console.log(resourcesGained)
-
     GAME.resources[this.resourceFocused] += resourcesGained
+
+    return `Your men successfully foraged ${resourcesGained} units of ${this.resourceFocused}!`
   }
 }

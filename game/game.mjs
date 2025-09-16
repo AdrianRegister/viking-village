@@ -58,4 +58,6 @@ export const GAME = {
       moraleSRM: 0,
     },
   },
+  seasonActivityPoints: 2,
+  hasForaged: false,
 }

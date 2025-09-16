@@ -47,4 +47,8 @@ export class NextTurn {
       GAME.resources.wood -= GAME.resources.population
     }
   }
+
+  resetActivities() {
+    //
+  }
 }
