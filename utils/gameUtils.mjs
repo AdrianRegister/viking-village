@@ -19,8 +19,12 @@ export function handleNextTurn() {
   GAME.currentTurn += 1
 
   const turn = new NextTurn()
-  // reset activity points and GAME bools
-  // turn.resetActivities()
+  const updater = new UIUpdater()
+
+  turn.resetActivities()
+  updater.enableActivityButtons()
+  updater.enableForageButtons()
+
   turn.calculateSeason()
 
   const eventGenerator = new RandomEvent(GAME.currentSeasonNumber)
@@ -33,19 +37,32 @@ export function handleNextTurn() {
   const randomEvent = eventGenerator.getGeneratedEvent()
   turn.calculatePopulation(randomEvent)
 
-  const updater = new UIUpdater()
   updater.updateAll()
 
   const ui = new UIGenerator()
   ui.renderRandomEventPopup(randomEvent)
 }
 
+export function handleActivity(dataset) {
+  const updater = new UIUpdater()
+
+  if (dataset.foraging) {
+    const result = handleForage(dataset.foraging)
+    updater.updateResourceBar()
+    updater.disableForageButtons()
+
+    const ui = new UIGenerator()
+    ui.renderActivityPopup("FORAGING", result)
+  }
+
+  if (GAME.seasonActivityPoints === 0) {
+    updater.disableActivityButtons()
+  }
+}
+
 export function handleForage(resourceFocused) {
   const forage = new Forage(resourceFocused)
   const result = forage.modifyResources()
-
-  const updater = new UIUpdater()
-  updater.updateResourceBar()
 
   GAME.seasonActivityPoints -= 1
   GAME.hasForaged = true

@@ -5,6 +5,35 @@ export class UIGenerator {
     this.#renderYear()
   }
 
+  renderActivityPopup(activityType, activityResult) {
+    const container = document.createElement("div")
+    container.classList.add("activity-popup")
+
+    const html = `
+        <div class="activity-image">
+          <img />
+        </div>
+        <div class="activity-text">ACTIVITY TEXT HERE</div>
+        <div>
+          <button class="close-activity-button">CLOSE</button>
+        </div>
+    `
+
+    container.innerHTML = html
+    document.querySelector("#root").appendChild(container)
+
+    document.querySelector(".activity-text").innerHTML = `
+      <h3>${activityType}</h3><h5>${activityResult}</h5>
+    `
+
+    document
+      .querySelector(".close-activity-button")
+      .addEventListener("click", (e) => {
+        e.preventDefault()
+        this.closePopup(".activity-popup")
+      })
+  }
+
   renderRandomEventPopup(randomEvent) {
     const container = document.createElement("div")
     container.classList.add("event-popup")
@@ -30,12 +59,12 @@ export class UIGenerator {
       .querySelector(".close-event-button")
       .addEventListener("click", (e) => {
         e.preventDefault()
-        this.closeRandomEventPopup()
+        this.closePopup(".event-popup")
       })
   }
 
-  closeRandomEventPopup() {
-    document.querySelector(".event-popup").remove()
+  closePopup(cssClass) {
+    document.querySelector(cssClass).remove()
   }
 
   #renderYear() {

@@ -49,6 +49,7 @@ export class NextTurn {
   }
 
   resetActivities() {
-    //
+    GAME.seasonActivityPoints = 2
+    GAME.hasForaged = false
   }
 }

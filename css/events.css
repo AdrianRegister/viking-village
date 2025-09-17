@@ -1,4 +1,5 @@
-.event-popup {
+.event-popup,
+.activity-popup {
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -11,18 +12,21 @@
   opacity: 0.8;
 }
 
-.event-image {
+.event-image,
+.activity-image {
   border: 1px solid black;
   height: 250px;
   width: 350px;
+  opacity: 1;
 }
 
-.event-text {
-  text-align: center;
-}
-
-.event-image,
 .event-text,
-.close-event-button {
+.activity-text {
+  text-align: center;
+  opacity: 1;
+}
+
+.close-event-button,
+.close-activity-button {
   opacity: 1;
 }

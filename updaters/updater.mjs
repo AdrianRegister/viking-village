@@ -69,4 +69,26 @@ export class UIUpdater {
     const CURRENT_SEASON = document.querySelector("#current-season")
     CURRENT_SEASON.innerHTML = GAME.currentSeasonName[GAME.currentSeasonNumber]
   }
+
+  disableActivityButtons() {
+    const activityButtons = document.querySelectorAll(".choose-activity-button")
+    activityButtons.forEach((b) => (b.disabled = true))
+  }
+
+  disableForageButtons() {
+    const forageButtons = document.querySelectorAll(".foraging-button")
+    if (GAME.hasForaged) {
+      forageButtons.forEach((b) => (b.disabled = true))
+    }
+  }
+
+  enableActivityButtons() {
+    const activityButtons = document.querySelectorAll(".choose-activity-button")
+    activityButtons.forEach((b) => (b.disabled = false))
+  }
+
+  enableForageButtons() {
+    const forageButtons = document.querySelectorAll(".foraging-button")
+    forageButtons.forEach((b) => (b.disabled = false))
+  }
 }
