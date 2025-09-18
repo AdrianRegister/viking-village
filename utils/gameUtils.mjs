@@ -4,6 +4,7 @@ import { UIUpdater } from "../updaters/updater.mjs"
 import { NextTurn } from "../updaters/nextTurn.mjs"
 import { RandomEvent } from "../random-events/randomEvents.mjs"
 import { Forage } from "../activities/forage.mjs"
+import { initTrainWarriorsSlider } from "./indexFunctions.mjs"
 
 export function initGame() {
   GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
@@ -41,6 +42,8 @@ export function handleNextTurn() {
 
   const ui = new UIGenerator()
   ui.renderRandomEventPopup(randomEvent)
+
+  initTrainWarriorsSlider()
 }
 
 export function handleActivity(dataset) {
