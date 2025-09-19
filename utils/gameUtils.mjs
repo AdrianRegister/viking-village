@@ -4,7 +4,7 @@ import { UIUpdater } from "../updaters/updater.mjs"
 import { NextTurn } from "../updaters/nextTurn.mjs"
 import { RandomEvent } from "../random-events/randomEvents.mjs"
 import { Forage } from "../activities/forage.mjs"
-import { initTrainWarriorsSlider } from "./indexFunctions.mjs"
+import { TrainingUI } from "../ui/trainingUi.mjs"
 
 export function initGame() {
   GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
@@ -43,7 +43,8 @@ export function handleNextTurn() {
   const ui = new UIGenerator()
   ui.renderRandomEventPopup(randomEvent)
 
-  initTrainWarriorsSlider()
+  const trainingUI = new TrainingUI()
+  trainingUI.initTrainWarriorsSlider()
 }
 
 export function handleActivity(dataset) {
@@ -56,6 +57,13 @@ export function handleActivity(dataset) {
 
     const ui = new UIGenerator()
     ui.renderActivityPopup("FORAGING", result)
+  }
+
+  if (dataset.training) {
+    //
+    const result = handleTraining()
+
+    // ...
   }
 
   if (GAME.seasonActivityPoints === 0) {

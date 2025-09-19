@@ -1,9 +1,4 @@
-import {
-  handleNextTurn,
-  initGame,
-  handleForage,
-  handleActivity,
-} from "./utils/gameUtils.mjs"
+import { handleNextTurn, initGame, handleActivity } from "./utils/gameUtils.mjs"
 
 document.addEventListener("DOMContentLoaded", () => {
   initGame()
