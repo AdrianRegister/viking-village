@@ -14,6 +14,9 @@ export function initGame() {
 
   const updater = new UIUpdater()
   updater.updateAll()
+
+  const trainingUI = new TrainingUI()
+  trainingUI.initTrainWarriorsSlider()
 }
 
 export function handleNextTurn() {
@@ -79,4 +82,9 @@ export function handleForage(resourceFocused) {
   GAME.hasForaged = true
 
   return result
+}
+
+export function handleTrainingSlider(event) {
+  const trainingUI = new TrainingUI()
+  trainingUI.handleTrainWarriorsSliderInput(event)
 }

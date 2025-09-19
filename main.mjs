@@ -1,4 +1,9 @@
-import { handleNextTurn, initGame, handleActivity } from "./utils/gameUtils.mjs"
+import {
+  handleNextTurn,
+  initGame,
+  handleActivity,
+  handleTrainingSlider,
+} from "./utils/gameUtils.mjs"
 
 document.addEventListener("DOMContentLoaded", () => {
   initGame()
@@ -16,4 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       handleActivity(e.target.dataset)
     })
   )
+
+  document.querySelector("#train-warriors").addEventListener("input", (e) => {
+    handleTrainingSlider(e)
+  })
 })
