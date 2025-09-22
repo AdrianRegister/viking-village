@@ -7,6 +7,11 @@ export const GAME = {
     3: "Fall",
     4: "Winter",
   },
+  specialResources: {
+    warriors: 0,
+    weapons: 10,
+    jewellery: 0,
+  },
   resources: {
     population: 35,
     food: 150,
@@ -58,6 +63,25 @@ export const GAME = {
       moraleSRM: 0,
     },
   },
-  seasonActivityPoints: 2,
-  hasForaged: false,
+  activities: {
+    seasonActivityPoints: 2,
+    hasForaged: false,
+    hasTrained: false,
+  },
+  CONSTANTS: {
+    warriorTrainingCosts: {
+      food: 5,
+      silver: 3,
+      weapons: 2,
+    },
+    upkeep: {
+      population: {
+        food: 1,
+      },
+      warriors: {
+        food: 3,
+        silver: 2,
+      },
+    },
+  },
 }

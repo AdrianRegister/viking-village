@@ -5,6 +5,7 @@ import { NextTurn } from "../updaters/nextTurn.mjs"
 import { RandomEvent } from "../random-events/randomEvents.mjs"
 import { Forage } from "../activities/forage.mjs"
 import { TrainingUI } from "../ui/trainingUi.mjs"
+import { TrainWarriors } from "../activities/trainWarriors.mjs"
 
 export function initGame() {
   GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
@@ -27,7 +28,6 @@ export function handleNextTurn() {
 
   turn.resetActivities()
   updater.enableActivityButtons()
-  updater.enableForageButtons()
 
   turn.calculateSeason()
 
@@ -55,7 +55,6 @@ export function handleActivity(dataset) {
 
   if (dataset.foraging) {
     const result = handleForage(dataset.foraging)
-    updater.updateResourceBar()
     updater.disableForageButtons()
 
     const ui = new UIGenerator()
@@ -63,13 +62,15 @@ export function handleActivity(dataset) {
   }
 
   if (dataset.training) {
-    //
-    const result = handleTraining()
-
-    // ...
+    handleTraining()
+    updater.disableTrainingButton()
   }
 
-  if (GAME.seasonActivityPoints === 0) {
+  updater.updateResourceBar()
+  updater.updateSpecialResourcesBar()
+  GAME.activities.seasonActivityPoints -= 1
+
+  if (GAME.activities.seasonActivityPoints === 0) {
     updater.disableActivityButtons()
   }
 }
@@ -78,10 +79,19 @@ export function handleForage(resourceFocused) {
   const forage = new Forage(resourceFocused)
   const result = forage.modifyResources()
 
-  GAME.seasonActivityPoints -= 1
-  GAME.hasForaged = true
+  GAME.activities.hasForaged = true
 
   return result
+}
+
+export function handleTraining() {
+  const train = new TrainWarriors()
+  const isSane = train.sanityCheck()
+  if (!isSane) return
+
+  train.train()
+
+  GAME.activities.hasTrained = true
 }
 
 export function handleTrainingSlider(event) {

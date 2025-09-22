@@ -11,14 +11,24 @@ export class NextTurn {
     GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
   }
 
-  // Each pop consumes 1 food per season
   calculateResources() {
+    // Each pop consumes 1 food per season
+    // Each warrior consumes 3 food and 2 silver per season
+    const populationFoodUpkeep =
+      GAME.CONSTANTS.upkeep.population.food * GAME.resources.population
+    const warriorsFoodUpkeep =
+      GAME.CONSTANTS.upkeep.warriors.food * GAME.specialResources.warriors
+    const warriorsSilverUpkeep =
+      GAME.CONSTANTS.upkeep.warriors.silver * GAME.specialResources.warriors
+
     GAME.resources.food +=
       Math.floor(
         GAME.resourcesPerSeason.foodPS *
           (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].foodSRM +
             GAME.randomEventResourceModifiers.food)
-      ) - GAME.resources.population
+      ) -
+      populationFoodUpkeep -
+      warriorsFoodUpkeep
 
     GAME.resources.wood += Math.floor(
       GAME.resourcesPerSeason.woodPS *
@@ -26,11 +36,12 @@ export class NextTurn {
           GAME.randomEventResourceModifiers.wood)
     )
 
-    GAME.resources.silver += Math.floor(
-      GAME.resourcesPerSeason.silverPS *
-        (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].silverSRM +
-          GAME.randomEventResourceModifiers.silver)
-    )
+    GAME.resources.silver +=
+      Math.floor(
+        GAME.resourcesPerSeason.silverPS *
+          (GAME.seasonResourceModifiers[GAME.currentSeasonNumber].silverSRM +
+            GAME.randomEventResourceModifiers.silver)
+      ) - warriorsSilverUpkeep
 
     GAME.resources.morale += GAME.resourcesPerSeason.moralePS
   }
@@ -49,7 +60,8 @@ export class NextTurn {
   }
 
   resetActivities() {
-    GAME.seasonActivityPoints = 2
-    GAME.hasForaged = false
+    GAME.activities.seasonActivityPoints = 2
+    GAME.activities.hasForaged = false
+    GAME.activities.hasTrained = false
   }
 }

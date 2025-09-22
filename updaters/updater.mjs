@@ -3,6 +3,7 @@ import { GAME } from "../game/game.mjs"
 export class UIUpdater {
   updateAll() {
     this.updateResourceBar()
+    this.updateSpecialResourcesBar()
     this.updateSeason()
     this.updateYear()
   }
@@ -41,10 +42,20 @@ export class UIUpdater {
     POPULATION_PS.innerHTML = popPsText >= 0 ? `+${popPsText}` : popPsText
 
     // Each pop consumes 1 food per season
+    // Each warrior consumes 3 food and 2 silver per season
+    const populationFoodUpkeep =
+      GAME.CONSTANTS.upkeep.population.food * GAME.resources.population
+    const warriorsFoodUpkeep =
+      GAME.CONSTANTS.upkeep.warriors.food * GAME.specialResources.warriors
+    const warriorsSilverUpkeep =
+      GAME.CONSTANTS.upkeep.warriors.silver * GAME.specialResources.warriors
+
     const foodPsText =
       Math.floor(
         foodPS * GAME.seasonResourceModifiers[nextSeasonNumber].foodSRM
-      ) - GAME.resources.population
+      ) -
+      populationFoodUpkeep -
+      warriorsFoodUpkeep
     FOOD_PS.innerHTML = foodPsText >= 0 ? `+${foodPsText}` : foodPsText
 
     const woodPsText = Math.floor(
@@ -52,12 +63,25 @@ export class UIUpdater {
     )
     WOOD_PS.innerHTML = woodPsText >= 0 ? `+${woodPsText}` : woodPsText
 
-    const silverPsText = Math.floor(
-      silverPS * GAME.seasonResourceModifiers[nextSeasonNumber].silverSRM
-    )
+    const silverPsText =
+      Math.floor(
+        silverPS * GAME.seasonResourceModifiers[nextSeasonNumber].silverSRM
+      ) - warriorsSilverUpkeep
     SILVER_PS.innerHTML = silverPsText >= 0 ? `+${silverPsText}` : silverPsText
 
     MORALE_PS.innerHTML = `+${moralePS}`
+  }
+
+  updateSpecialResourcesBar() {
+    const WARRIORS_COUNT = document.querySelector("#warriors-count")
+    const WEAPONS_COUNT = document.querySelector("#weapons-count")
+    const JEWELLERY_COUNT = document.querySelector("#jewellery-count")
+
+    const { warriors, weapons, jewellery } = GAME.specialResources
+
+    WARRIORS_COUNT.innerHTML = Math.floor(warriors)
+    WEAPONS_COUNT.innerHTML = Math.floor(weapons)
+    JEWELLERY_COUNT.innerHTML = Math.floor(jewellery)
   }
 
   updateYear() {
@@ -77,18 +101,20 @@ export class UIUpdater {
 
   disableForageButtons() {
     const forageButtons = document.querySelectorAll(".foraging-button")
-    if (GAME.hasForaged) {
+    if (GAME.activities.hasForaged) {
       forageButtons.forEach((b) => (b.disabled = true))
+    }
+  }
+
+  disableTrainingButton() {
+    const trainingButton = document.querySelector(".training-button")
+    if (GAME.activities.hasTrained) {
+      trainingButton.disabled = true
     }
   }
 
   enableActivityButtons() {
     const activityButtons = document.querySelectorAll(".choose-activity-button")
     activityButtons.forEach((b) => (b.disabled = false))
-  }
-
-  enableForageButtons() {
-    const forageButtons = document.querySelectorAll(".foraging-button")
-    forageButtons.forEach((b) => (b.disabled = false))
   }
 }

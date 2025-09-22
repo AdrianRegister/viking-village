@@ -1,3 +1,4 @@
+import { GAME } from "./game/game.mjs"
 import {
   handleNextTurn,
   initGame,
@@ -13,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", (e) => {
       e.preventDefault()
       handleNextTurn()
+
+      // for debugging
+      console.log(GAME)
     })
 
   document.querySelectorAll(".choose-activity-button").forEach((el) =>

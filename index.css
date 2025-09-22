@@ -35,6 +35,7 @@ button {
 }
 
 #resources-bar,
+#special-resources-bar,
 #season-year-bar {
   display: flex;
   flex-flow: row wrap;

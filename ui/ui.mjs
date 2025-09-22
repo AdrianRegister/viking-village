@@ -1,6 +1,7 @@
 export class UIGenerator {
   renderUI() {
     this.#renderResourcesBar()
+    this.#renderSpecialResourcesBar()
     this.#renderSeason()
     this.#renderYear()
   }
@@ -129,5 +130,30 @@ export class UIGenerator {
     `
 
     document.querySelector("#resources-bar").innerHTML = html
+  }
+
+  #renderSpecialResourcesBar() {
+    const html = `
+      <div class="bar-container">
+        <span>Warriors</span>
+        <div>
+          <span id="warriors-count"></span>
+        </div>
+      </div>
+      <div class="bar-container">
+        <span>Weapons</span>
+        <div>
+          <span id="weapons-count"></span>
+        </div>
+      </div>
+      <div class="bar-container">
+        <span>Jewellery</span>
+        <div>
+          <span id="jewellery-count"></span>
+        </div>
+      </div>
+    `
+
+    document.querySelector("#special-resources-bar").innerHTML = html
   }
 }

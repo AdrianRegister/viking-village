@@ -7,8 +7,9 @@ export class TrainingUI {
     this.trainingCostText = document.querySelector("#train-warriors-cost")
     this.trainingButton = document.querySelector(".training-button")
 
-    this.foodCost
-    this.silverCost
+    this.foodCost = GAME.CONSTANTS.warriorTrainingCosts.food
+    this.silverCost = GAME.CONSTANTS.warriorTrainingCosts.silver
+    this.weaponsCost = GAME.CONSTANTS.warriorTrainingCosts.weapons
   }
 
   initTrainWarriorsSlider() {
@@ -18,14 +19,22 @@ export class TrainingUI {
     this.slider.max = totalPopulation
     this.slider.value = initSliderValue
 
-    this.handleTrainWarriorsSliderText()
+    const totalTrainingCosts = this.#handleTrainWarriorsSliderText()
+    this.#checkToDisableTrainingButton(totalTrainingCosts)
   }
 
-  checkToDisableTrainingButton() {
+  #checkToDisableTrainingButton(totalTrainingCosts) {
+    const [totalFoodCost, totalSilverCost, totalWeaponsCost] =
+      totalTrainingCosts
     const totalFood = GAME.resources.food
     const totalSilver = GAME.resources.silver
+    const totalWeapons = GAME.specialResources.weapons
 
-    if (this.foodCost > totalFood || this.silverCost > totalSilver) {
+    if (
+      totalFoodCost > totalFood ||
+      totalSilverCost > totalSilver ||
+      totalWeaponsCost > totalWeapons
+    ) {
       this.trainingButton.disabled = true
     } else {
       this.trainingButton.disabled = false
@@ -33,19 +42,39 @@ export class TrainingUI {
   }
 
   handleTrainWarriorsSliderInput(event) {
-    this.handleTrainWarriorsSliderText(true, event)
-    this.checkToDisableTrainingButton()
+    const totalTrainingCosts = this.#handleTrainWarriorsSliderText(true, event)
+    this.#checkToDisableTrainingButton(totalTrainingCosts)
   }
 
-  handleTrainWarriorsSliderText(isEvent = false, event = {}) {
+  #handleTrainWarriorsSliderText(isEvent = false, event = {}) {
     if (isEvent) {
       this.slider.value = event.target.value
     }
 
-    this.foodCost = this.slider.value * 5
-    this.silverCost = this.slider.value * 3
+    const totalTrainingCosts = this.#calculateTotalTrainingCosts()
+    const [totalFoodCost, totalSilverCost, totalWeaponsCost] =
+      totalTrainingCosts
 
     this.sliderLabel.innerHTML = `${this.slider.value} warriors`
-    this.trainingCostText.innerHTML = `Cost to train: ${this.foodCost} food. ${this.silverCost} silver.`
+    this.trainingCostText.innerHTML = `
+      Cost to train: ${totalFoodCost} food. ${totalSilverCost} silver. ${totalWeaponsCost} weapons.
+    `
+
+    return totalTrainingCosts
+  }
+
+  #calculateTotalTrainingCosts() {
+    const totalCostArray = []
+
+    const totalFoodCost = this.slider.value * this.foodCost
+    totalCostArray.push(totalFoodCost)
+
+    const totalSilverCost = this.slider.value * this.silverCost
+    totalCostArray.push(totalSilverCost)
+
+    const totalWeaponsCost = this.slider.value * this.weaponsCost
+    totalCostArray.push(totalWeaponsCost)
+
+    return totalCostArray
   }
 }
