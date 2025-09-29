@@ -19,7 +19,7 @@ export const GAME = {
     food: 150,
     wood: 100,
     silver: 75,
-    morale: 80,
+    morale: 50,
   },
   resourcesPerSeason: {
     populationPS: 1,

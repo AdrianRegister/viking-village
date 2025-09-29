@@ -22,7 +22,7 @@ export function initGame() {
   trainingUI.initTrainWarriorsSlider()
 
   const raidingUI = new RaidingUI()
-  raidingUI.lockTargets()
+  raidingUI.toggleLockTargets()
 }
 
 export function handleNextTurn() {
@@ -55,7 +55,7 @@ export function handleNextTurn() {
   trainingUI.initTrainWarriorsSlider()
 
   const raidingUI = new RaidingUI()
-  raidingUI.lockTargets()
+  raidingUI.toggleLockTargets()
 }
 
 export function handleActivity(dataset) {
@@ -72,11 +72,15 @@ export function handleActivity(dataset) {
   if (dataset.training) {
     handleTraining()
     updater.disableTrainingButton()
+
+    const raidingUI = new RaidingUI()
+    raidingUI.toggleLockTargets()
   }
 
   if (dataset.raiding) {
     const outcome = handleRaiding(dataset.raiding)
     const formattedOutcome = formatRaidingOutcome(outcome)
+    updater.disableRaidingButtons()
 
     const ui = new UIGenerator()
     ui.renderActivityPopup("RAIDING", formattedOutcome)

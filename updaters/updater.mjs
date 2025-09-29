@@ -111,6 +111,13 @@ export class UIUpdater {
     }
   }
 
+  disableRaidingButtons() {
+    const raidingButtons = document.querySelectorAll(".raiding-button")
+    if (GAME.activities.hasRaided) {
+      raidingButtons.forEach((b) => (b.disabled = true))
+    }
+  }
+
   disableTrainingButton() {
     const trainingButton = document.querySelector(".training-button")
     if (GAME.activities.hasTrained) {

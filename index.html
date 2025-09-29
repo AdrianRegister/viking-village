@@ -36,7 +36,8 @@
               <h3>Training</h3>
               <div class="activity-option">
                 <p>Convert Population to Warriors. Each warrior consumes 3 food and 2 silver per season.<br><br>
-                Each warrior costs 5 food, 3 silver, and 2 weapons for training and equipment costs.</p>
+                  Warriors are used for raiding, which can provide a source of resources for your village.<br><br>
+                  Each warrior costs 5 food, 3 silver, and 2 weapons for training and equipment costs.</p>
                 <input type="range" id="train-warriors" name="train-warriors" min="1" />
                 <label id="train-warriors-label" for="train-warriors"></label>
                 <p id="train-warriors-cost"></p>
@@ -45,24 +46,26 @@
             </div>
             <div class="activity-container">
               <h3>Raiding</h3>
-              <p>Send your warriors to earn glory and loot. Their chance of success will depend on number, level of experience, raid leader, and level of defenses of the target.</p>
+              <p>Send your warriors to earn glory and loot. Their chance of success will depend on number, 
+                level of experience, raid leader, and level of defenses of the target.</p>
               <div class="activity-option">
                 <p>Raid a nearby village</p>
+                <span class="raid-success-chance"></span>
                 <button class="choose-activity-button raiding-button" data-raiding=1>CHOOSE</button>
               </div>
               <div class="activity-option longship-required">
                 <p>Raid a foreign village</p>
-                <span>LOCKED - NO LONGSHIPS AVAILABLE</span>
+                <span class="raid-success-chance"></span>
                 <button class="choose-activity-button raiding-button" data-raiding=2>CHOOSE</button>
               </div>
               <div class="activity-option longship-required">
                 <p>Raid a foreign monastery</p>
-                <span>LOCKED - NO LONGSHIPS AVAILABLE</span>
+                <span class="raid-success-chance"></span>
                 <button class="choose-activity-button raiding-button" data-raiding=3>CHOOSE</button>
               </div>
               <div class="activity-option longship-required">
                 <p>Raid a foreign city</p>
-                <span>LOCKED - NO LONGSHIPS AVAILABLE</span>
+                <span class="raid-success-chance"></span>
                 <button class="choose-activity-button raiding-button" data-raiding=4>CHOOSE</button>
               </div>
             </div>

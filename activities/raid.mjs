@@ -27,7 +27,6 @@ export class Raid {
   }
 
   addModifiersToFightingStrength() {
-    // modifiers will morale
     // later modifiers can be leader skill, blessing of the gods,
     // village reputation etc.
     const moraleModifier = 1 + GAME.resources.morale / 100
