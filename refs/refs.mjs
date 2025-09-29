@@ -1,5 +1,0 @@
-export const POPULATION_COUNT = document.querySelector("#population-count")
-export const FOOD_COUNT = document.querySelector("#food-count")
-export const WOOD_COUNT = document.querySelector("#wood-count")
-export const SILVER_COUNT = document.querySelector("#silver-count")
-export const MORALE_COUNT = document.querySelector("#morale-count")

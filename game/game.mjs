@@ -83,5 +83,18 @@ export const GAME = {
         silver: 2,
       },
     },
+    raidingTargets: [
+      {
+        id: 1,
+        name: "village",
+        defenseStrength: 5,
+        fortLevel: 0,
+        loot: {
+          food: 10,
+          wood: 10,
+          silver: 10,
+        },
+      },
+    ],
   },
 }

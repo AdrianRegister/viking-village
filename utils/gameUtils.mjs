@@ -6,6 +6,7 @@ import { RandomEvent } from "../random-events/randomEvents.mjs"
 import { Forage } from "../activities/forage.mjs"
 import { TrainingUI } from "../ui/trainingUi.mjs"
 import { TrainWarriors } from "../activities/trainWarriors.mjs"
+import { Raid } from "../activities/raid.mjs"
 
 export function initGame() {
   GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
@@ -66,6 +67,11 @@ export function handleActivity(dataset) {
     updater.disableTrainingButton()
   }
 
+  if (dataset.raiding) {
+    const result = handleRaiding(dataset.raiding)
+    // updater.disableRaidingButtons()
+  }
+
   updater.updateResourceBar()
   updater.updateSpecialResourcesBar()
   GAME.activities.seasonActivityPoints -= 1
@@ -73,6 +79,16 @@ export function handleActivity(dataset) {
   if (GAME.activities.seasonActivityPoints === 0) {
     updater.disableActivityButtons()
   }
+
+  console.log(GAME)
+}
+
+export function handleRaiding(targetChosen) {
+  const raid = new Raid(targetChosen).setTarget()
+  // raid steps...
+  // ...
+
+  // GAME.activities.hasRaided = true
 }
 
 export function handleForage(resourceFocused) {
