@@ -9,8 +9,10 @@ export const GAME = {
   },
   specialResources: {
     warriors: 0,
+    thralls: 0,
     weapons: 10,
     jewellery: 0,
+    longships: 0,
   },
   resources: {
     population: 35,
@@ -67,6 +69,7 @@ export const GAME = {
     seasonActivityPoints: 2,
     hasForaged: false,
     hasTrained: false,
+    hasRaided: false,
   },
   CONSTANTS: {
     warriorTrainingCosts: {
@@ -88,13 +91,15 @@ export const GAME = {
         id: 1,
         name: "village",
         defenseStrength: 5,
-        fortLevel: 0,
+        fortLevel: 2,
         loot: {
           food: 10,
           wood: 10,
           silver: 10,
+          captives: 3,
         },
       },
+      // ...add more raid targets
     ],
   },
 }

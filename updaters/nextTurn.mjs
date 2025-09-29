@@ -63,5 +63,6 @@ export class NextTurn {
     GAME.activities.seasonActivityPoints = 2
     GAME.activities.hasForaged = false
     GAME.activities.hasTrained = false
+    GAME.activities.hasRaided = false
   }
 }

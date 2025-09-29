@@ -141,6 +141,12 @@ export class UIGenerator {
         </div>
       </div>
       <div class="bar-container">
+        <span>Thralls</span>
+        <div>
+          <span id="thralls-count"></span>
+        </div>
+      </div>
+      <div class="bar-container">
         <span>Weapons</span>
         <div>
           <span id="weapons-count"></span>
@@ -150,6 +156,12 @@ export class UIGenerator {
         <span>Jewellery</span>
         <div>
           <span id="jewellery-count"></span>
+        </div>
+      </div>
+      <div class="bar-container">
+        <span>Longships</span>
+        <div>
+          <span id="longships-count"></span>
         </div>
       </div>
     `

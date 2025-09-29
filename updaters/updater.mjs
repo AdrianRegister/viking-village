@@ -74,14 +74,19 @@ export class UIUpdater {
 
   updateSpecialResourcesBar() {
     const WARRIORS_COUNT = document.querySelector("#warriors-count")
+    const THRALLS_COUNT = document.querySelector("#thralls-count")
     const WEAPONS_COUNT = document.querySelector("#weapons-count")
     const JEWELLERY_COUNT = document.querySelector("#jewellery-count")
+    const LONGSHIPS_COUNT = document.querySelector("#longships-count")
 
-    const { warriors, weapons, jewellery } = GAME.specialResources
+    const { warriors, thralls, weapons, jewellery, longships } =
+      GAME.specialResources
 
     WARRIORS_COUNT.innerHTML = Math.floor(warriors)
+    THRALLS_COUNT.innerHTML = Math.floor(thralls)
     WEAPONS_COUNT.innerHTML = Math.floor(weapons)
     JEWELLERY_COUNT.innerHTML = Math.floor(jewellery)
+    LONGSHIPS_COUNT.innerHTML = Math.floor(longships)
   }
 
   updateYear() {

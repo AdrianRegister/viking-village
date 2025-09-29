@@ -7,6 +7,7 @@ import { Forage } from "../activities/forage.mjs"
 import { TrainingUI } from "../ui/trainingUi.mjs"
 import { TrainWarriors } from "../activities/trainWarriors.mjs"
 import { Raid } from "../activities/raid.mjs"
+import { RaidingUI } from "../ui/raidingUI.mjs"
 
 export function initGame() {
   GAME.currentYear = Math.floor(800 + GAME.currentTurn * 0.25) + "AD"
@@ -19,6 +20,9 @@ export function initGame() {
 
   const trainingUI = new TrainingUI()
   trainingUI.initTrainWarriorsSlider()
+
+  const raidingUI = new RaidingUI()
+  raidingUI.lockTargets()
 }
 
 export function handleNextTurn() {
@@ -49,6 +53,9 @@ export function handleNextTurn() {
 
   const trainingUI = new TrainingUI()
   trainingUI.initTrainWarriorsSlider()
+
+  const raidingUI = new RaidingUI()
+  raidingUI.lockTargets()
 }
 
 export function handleActivity(dataset) {
@@ -68,8 +75,11 @@ export function handleActivity(dataset) {
   }
 
   if (dataset.raiding) {
-    const result = handleRaiding(dataset.raiding)
-    // updater.disableRaidingButtons()
+    const outcome = handleRaiding(dataset.raiding)
+    const formattedOutcome = formatRaidingOutcome(outcome)
+
+    const ui = new UIGenerator()
+    ui.renderActivityPopup("RAIDING", formattedOutcome)
   }
 
   updater.updateResourceBar()
@@ -84,11 +94,22 @@ export function handleActivity(dataset) {
 }
 
 export function handleRaiding(targetChosen) {
-  const raid = new Raid(targetChosen).setTarget()
-  // raid steps...
-  // ...
+  const raid = new Raid(targetChosen)
+  raid.setTarget()
+  raid.addModifiersToFightingStrength()
+  raid.addModifiersToDefenders()
+  raid.battle()
+  raid.calculateCasualties()
+  raid.calculateLoot()
 
-  // GAME.activities.hasRaided = true
+  // TODO
+  // raid.calculateLeaderExperience()
+
+  const raidOutcome = raid.resolveRaid()
+
+  GAME.activities.hasRaided = true
+
+  return raidOutcome
 }
 
 export function handleForage(resourceFocused) {
@@ -113,4 +134,32 @@ export function handleTraining() {
 export function handleTrainingSlider(event) {
   const trainingUI = new TrainingUI()
   trainingUI.handleTrainWarriorsSliderInput(event)
+}
+
+export function formatRaidingOutcome(formattedOutcome) {
+  const { victory, casualties, lootGained, leaderExperience } = formattedOutcome
+
+  let outcomeText
+  const warriorsWithS = casualties === 1 ? "warrior" : "warriors"
+  const captivesWithS = lootGained.captives === 1 ? "thrall" : "thralls"
+  const hasOrHave = casualties === 1 ? "has" : "have"
+
+  if (!victory) {
+    outcomeText = `Your warriors have been driven back! The raid has failed. 
+    ${casualties} ${warriorsWithS} ${hasOrHave} fallen in battle!`
+  } else {
+    outcomeText = `Glorious victory! The raid has been a successful demonstration of your clan's strength!<br>
+    Your warriors have looted ${lootGained.food} food, ${lootGained.wood} wood, and ${lootGained.silver} silver from
+    their feeble adversaries. `
+    if (lootGained.captives) {
+      outcomeText += `They have also captured ${lootGained.captives} ${captivesWithS}!`
+    }
+    if (casualties) {
+      outcomeText += `<br><br>However, ${casualties} ${warriorsWithS} ${hasOrHave} fallen in battle!`
+    } else {
+      outcomeText += `<br><br>Your raid was truly blessed by the gods! Not a single warrior has fallen!`
+    }
+  }
+
+  return outcomeText
 }
